@@ -2,11 +2,9 @@ __author__ = 'Bill'
 
 import pandas as pd
 import json
-from firebase import firebase
-
-app = firebase.FirebaseApplication('https://boiling-fire-6168.firebaseio.com/', None)
-instagram_data = app.get('/instagram_data', None)
-twitter_data = app.get('/twitter_data', None)
+from get_twitter_data import retrive 
+instagram_data = retrive('instagram_data')
+twitter_data = retrive('twitter_data')
 
 exec(open("../../kmeans.py").read())
 
