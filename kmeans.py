@@ -1,9 +1,9 @@
 __author__ = 'Bill'
-def kmeansData(k=3,fname=None,plotFlag=False):
+def kmeansData(k=3,df=None,plotFlag=False):
     '''
     @input:
             k: number of categories
-            fname: input filename
+            df: pandas dataFrame. format (sample,feature)
             plotFlag: whether you wanna use matplot to plot the data or not
 
     @return: (label,data_cluster_centers,data_num_each_cluster)
@@ -14,20 +14,19 @@ def kmeansData(k=3,fname=None,plotFlag=False):
     '''
     import pandas as pd
     import numpy as np
-    df = pd.DataFrame.from_csv(fname)
-
     # modify columns
-    df.columns = [u'id', u'lat', u'lng', u'loca', u'color', u'timestamp']
-    df.drop(['color'],inplace=True,axis=1)
-    df.drop(['loca'],inplace=True,axis=1)
-    ll_arr = np.asarray(zip(df['id'],df['lat'],df['lng']),dtype = 'float64')
+    # df = df.transpose()
+    # df.columns = [u'id', u'lat', u'lng', u'loca', u'color', u'timestamp']
+    # df.drop(['color'],inplace=True,axis=1)
+    # df.drop(['loca'],inplace=True,axis=1)
+    ll_arr = np.asarray(zip(df['coordinate_1'],df['coordinate_2']),dtype = 'float64')
 
     # kmeans
     from sklearn.preprocessing import StandardScaler
     from sklearn import cluster
 
     stdScaler = StandardScaler()
-    ll_arr_std = stdScaler.fit_transform(ll_arr[:,1:])
+    ll_arr_std = stdScaler.fit_transform(ll_arr)
 
     k_means = cluster.KMeans(n_clusters=k)
     k_means.fit_predict(ll_arr_std)
@@ -59,11 +58,16 @@ def kmeansData(k=3,fname=None,plotFlag=False):
             cluster_center = data_cluster_centers[k]
             ax.plot(ll_arr[my_members, 0], ll_arr[my_members, 1], 'w',
                     markerfacecolor=col, marker='.')
+            ax = fig.gca()
+            ax.axis('scaled')
             ax.plot(data_cluster_centers[0], data_cluster_centers[1], 'o', markerfacecolor=col,
                     markeredgecolor='k', markersize=6)
         ax.set_title('KMeans')
         ax.set_xticks(())
         ax.set_yticks(())
 
+        plt.show()
+
 
     return (data_labels,data_cluster_centers,data_num_each_cluster)
+
