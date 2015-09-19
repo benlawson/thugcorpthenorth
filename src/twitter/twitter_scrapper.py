@@ -25,10 +25,16 @@ def send_data(response):
         result = firebase.post('/data', query)
         print result
         #print payload
+<<<<<<< Updated upstream:src/twitter/twitter_scrapper.py
         # save_to_db(payload)
         return "good"
+=======
+        #save_to_db(payload)
+        #print payload
+        return 1 
+>>>>>>> Stashed changes:twitter_scrapper.py
     except:
-        return "error"
+        return 0 
 
 
 #need to have a file keys.txt with the Twitter API keys/info
@@ -47,7 +53,14 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-
+score = 0
 for tweet in tweepy.Cursor(api.search,q="",count=2000, geocode="43.7182412,-79.378058,5mi").items():
+<<<<<<< Updated upstream:src/twitter/twitter_scrapper.py
     print tweet.text
     print send_data(tweet)
+=======
+    
+    #print tweet.text
+    score = score + send_data(tweet)
+
+>>>>>>> Stashed changes:twitter_scrapper.py
