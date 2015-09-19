@@ -13,28 +13,13 @@ firebase = firebase.FirebaseApplication('https://boiling-fire-6168.firebaseio.co
 
 def send_data(response):
     query = {}
-    try:
-        query["source"] = "twitter"
-        query["coordinate_1"] = response.coordinates['coordinates'][0]
-        query["coordinate_2"] = response.coordinates['coordinates'][1]
-        query["created_at"] = str(response.created_at)
-        query["id"] = response.id
-        query["text"] = response.text
-        for x in query:
-            print x
-        result = firebase.post('/data', query)
-        print result
-        #print payload
-<<<<<<< Updated upstream:src/twitter/twitter_scrapper.py
-        # save_to_db(payload)
-        return "good"
-=======
-        #save_to_db(payload)
-        #print payload
-        return 1 
->>>>>>> Stashed changes:twitter_scrapper.py
-    except:
-        return 0 
+    query["coordinate_1"] = response.coordinates['coordinates'][0]
+    query["coordinate_2"] = response.coordinates['coordinates'][1]
+    query["created_at"] = str(response.created_at)
+    query["id"] = response.id
+    query["text"] = response.text
+    result = firebase.post('/twitter_data', query)
+    print result
 
 
 #need to have a file keys.txt with the Twitter API keys/info
@@ -43,7 +28,7 @@ consumer_secret = ''
 access_token = ''
 access_token_secret = ''
 
-with open('keys.txt','r') as f:
+with open('twitter_keys.txt','r') as f:
     consumer_key = f.readline().strip()
     consumer_secret = f.readline().strip()
     access_token = f.readline().strip()
@@ -53,14 +38,6 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-score = 0
 for tweet in tweepy.Cursor(api.search,q="",count=2000, geocode="43.7182412,-79.378058,5mi").items():
-<<<<<<< Updated upstream:src/twitter/twitter_scrapper.py
     print tweet.text
     print send_data(tweet)
-=======
-    
-    #print tweet.text
-    score = score + send_data(tweet)
-
->>>>>>> Stashed changes:twitter_scrapper.py
