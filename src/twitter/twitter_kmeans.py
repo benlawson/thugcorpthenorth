@@ -10,7 +10,7 @@ twitter_data = app.get('/twitter_data', None)
 
 exec(open("../../kmeans.py").read())
 
-df = pd.DataFrame.from_dict(data)
+df = pd.DataFrame.from_dict(instagram_data)
 
 data_labels,data_cluster_centers,data_num_each_cluster = kmeansData(df=df.transpose(),plotFlag=False)
 print(data_labels)
