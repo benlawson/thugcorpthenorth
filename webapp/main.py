@@ -2,28 +2,16 @@ import os
 import webapp2
 import jinja2
 
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir))
+
 # from firebase import firebase
 # Example of firebase
 # firebase = firebase.FirebaseApplication('https://your_storage.firebaseio.com', None)
 # result = firebase.get('/users', None)
 
-main_form = """
-<form action="/map" method="post" id="mainform">
-  <h2>How far away?</h2>
-  <select name="Distance" form="mainform">
-    <option value="1">1 mile</option>
-    <option value="2">2 mile</option>
-    <option value="3">3 mile</option>
-    <option value="4">4 mile</option>
-  </select>
-  <div><textarea name="content" rows="3" cols="60"></textarea></div>
-  <div><input type="submit" value="Sign Guestbook"></div>
-</form>
 
-"""
-
-main_page =
-"""
+main_page = """
 <html>
 <body>
 %s
@@ -36,6 +24,13 @@ main_page =
 class Handler(webapp2.RequestHandler):
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
+
+    def render_str(self, template, **params):
+        t = jinja_env.get_template(template)
+        return t.render(params)
+
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
 
 # Example of RequestHandler
 class MainPage(Handler):
