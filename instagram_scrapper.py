@@ -1,7 +1,6 @@
 
 # coding: utf-8
 
-# In[ ]:
 
 import MySQLdb
 import urllib3
