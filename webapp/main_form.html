@@ -1,0 +1,29 @@
+<!-- Main page template -->
+
+
+<form action="/map" method="post">
+  <h2>How far away?</h2>
+  <select>
+    <option value="1">1 mile</option>
+    <option value="2">2 mile</option>
+    <option value="3">3 mile</option>
+    <option value="4">4 mile</option>
+  </select>
+  <div><textarea name="content" rows="3" cols="60"></textarea></div>
+  <div><input type="submit" value="Sign Guestbook"></div>
+</form>
+
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
+</script>
