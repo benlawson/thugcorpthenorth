@@ -35,6 +35,6 @@ http = urllib3.PoolManager()
 while True:
     response = http.request('GET', "https://api.instagram.com/v1/media/search?lat=43.653226&lng=-79.383184&distance=500000&access_token=15936371.e012851.5d851e6e8e0446b2bf66ecb70da6a9d5").data
     info = json.loads(response)['data']
-    for x in range(len(response)):
+    for x in range(len(info)):
         if info[x]['location'] != None:
             send_data(info)
