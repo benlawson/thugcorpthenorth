@@ -31,17 +31,22 @@ class MainPage(Handler):
             # <option value="{{spot}}">{{spot}}</option>
         self.render("main_form.html")
 
+class ResultsPage(Handler):
     def post(self):
         distance = self.request.get("distance")
         find = self.request.get("find")
         lon = self.request.get("lon")
         lat = self.request.get("lat")
-
-        # we know distance and location from
-        # here we will send stuff to firebase and get the 3
-        self.write('hello again. Distance: ' + distance)
+        if lon != 'lonx' or lat != 'latx':
+            # we don't have the location data, send it back
+            self.render("main_form.html", distance, find)
+        else:
+            # we know distance and location
+            # here we will send stuff to firebase and get the 3
+            self.write('post got sent and pulled.\n Distance: ' + distance)
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    (r'/', MainPage),
+    (r'/results', ResultsPage),
 ], debug=True)
