@@ -11,15 +11,6 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir))
 # result = firebase.get('/users', None)
 
 
-main_page = """
-<html>
-<body>
-%s
-</body>
-</html>
-"""
-
-
 # handlers classes:
 class Handler(webapp2.RequestHandler):
     def write(self, *a, **kw):
@@ -35,13 +26,14 @@ class Handler(webapp2.RequestHandler):
 # Example of RequestHandler
 class MainPage(Handler):
     def get(self):
-        output = main_page % main_form
-        self.write(output)
+        self.render("main_form.html")
 
-class MapPage(Handler):
-    def get(self):
-        output = map_page
-        self.write(output)
+    def post(self):
+        distance = self.request.get("distance")
+
+        # we know distance and location from
+        # here we will send stuff to firebase and get the 3
+        self.write('hello again. Distance: ' + distance)
 
 
 app = webapp2.WSGIApplication([

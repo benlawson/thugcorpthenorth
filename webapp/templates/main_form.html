@@ -1,12 +1,22 @@
 
-<form action="/map" method="post" id="mainform">
+<form method="post" id="mainform">
   <h2>How far away?</h2>
-  <select name="Distance" form="mainform">
+
+  <select name="distance" form="mainform">
     <option value="1">1 mile</option>
     <option value="2">2 mile</option>
     <option value="3">3 mile</option>
     <option value="4">4 mile</option>
   </select>
-  <div><textarea name="content" rows="3" cols="60"></textarea></div>
-  <div><input type="submit" value="Sign Guestbook"></div>
+
+  <select name="distance" form="mainform">
+    <option value="Restarants">Restarants</option>
+    <option value="Nightlife">Nightlife</option>
+    <option value="Coffee &amp; Tea">Coffee &amp; Tea</option>
+  </select>
+
+  <input type="hidden" name="lon" value="">
+  <input type="hidden" name="lat" value="">
+
+  <button>Find the best place</button>
 </form>
