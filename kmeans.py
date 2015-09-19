@@ -47,7 +47,7 @@ def kmeansData(k=3,fname=None,plotFlag=False):
     # plot the data
     if plotFlag:
         import matplotlib.pyplot as plt
-        %matplotlib inline
+        # %matplotlib inline
         fig = plt.figure(figsize=(8, 3))
         fig.subplots_adjust(left=0.02, right=0.98, bottom=0.05, top=0.9)
         colors = ['#4EACC5', '#FF9C34', '#4E9A06','#00FFFF']
