@@ -6,23 +6,26 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 import tweepy
 import datetime
+import time
+from firebase import firebase
 
-
-#def save_to_db(payload):
+firebase = firebase.FirebaseApplication('https://boiling-fire-6168.firebaseio.com/', None)
 
 def send_data(response):
-    query = []
+    query = {}
     try:
-        query.append(response.coordinates['coordinates'][0])
-        query.append(response.coordinates['coordinates'][1])
-        query.append(str(response.created_at))
-        query.append(response.id)
-        query.append(response.text)
-
-        payload = [str(x.encode('ascii', 'ignore')).replace("\"","\'").replace('u\'','').replace('None','0') if type(x) is unicode or type(x) is str else str(x).replace("\"","\'").replace('u\'','') for x in query ]
-        #payload = str(query)
+        query["source"] = "twitter"
+        query["coordinate_1"] = response.coordinates['coordinates'][0]
+        query["coordinate_2"] = response.coordinates['coordinates'][1]
+        query["created_at"] = str(response.created_at)
+        query["id"] = response.id
+        query["text"] = response.text
+        for x in query:
+            print x
+        result = firebase.post('/data', query)
+        print result
         #print payload
-        save_to_db(payload)
+        # save_to_db(payload)
         return "good"
     except:
         return "error"
@@ -48,4 +51,3 @@ api = tweepy.API(auth)
 for tweet in tweepy.Cursor(api.search,q="",count=2000, geocode="43.7182412,-79.378058,5mi").items():
     print tweet.text
     print send_data(tweet)
-
