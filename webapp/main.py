@@ -10,6 +10,7 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir))
 # firebase = firebase.FirebaseApplication('https://your_storage.firebaseio.com', None)
 # result = firebase.get('/users', None)
 
+spots_to_find = ['Food', 'Nightlife', 'Spots', 'Activities']
 
 # handlers classes:
 class Handler(webapp2.RequestHandler):
@@ -26,10 +27,15 @@ class Handler(webapp2.RequestHandler):
 # Example of RequestHandler
 class MainPage(Handler):
     def get(self):
+        # for spot in spots_to_find:
+            # <option value="{{spot}}">{{spot}}</option>
         self.render("main_form.html")
 
     def post(self):
         distance = self.request.get("distance")
+        find = self.request.get("find")
+        lon = self.request.get("lon")
+        lat = self.request.get("lat")
 
         # we know distance and location from
         # here we will send stuff to firebase and get the 3
