@@ -1,2 +1,4 @@
 ../keys.txt
 *.pyc
+../twitter_data.json
+../instagram_data.json

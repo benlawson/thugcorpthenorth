@@ -7,11 +7,11 @@ import numpy as np
 from pprint import pprint
 # twitter_data = retrive('twitter_data')
 
-os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data.json')
+os.system('curl "https://boiling-fire-6168.firebaseio.com/instagram_data.json?print=pretty" > instagram_data.json')
 
 exec(open("../../kmeans.py").read())
 
-with open('twitter_data.json') as json_data:
+with open('instagram_data.json') as json_data:
     data = json.load(json_data)
 
 df = pd.DataFrame.from_dict(data)
