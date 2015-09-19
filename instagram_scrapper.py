@@ -3,15 +3,15 @@
 
 # In[ ]:
 
-import MySQLdb
+# import MySQLdb
 import urllib3
 from bs4 import BeautifulSoup 
 import json
 import datetime
 import time
 
-def save_to_db(payload, table):
-#pls implement
+# def save_to_db(payload, table):
+# #pls implement
 
 def send_data(response):
     #get tweet information
