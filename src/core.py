@@ -30,12 +30,18 @@ def client_choice(latitude, longitude, dis, theme=None):
     search_results  = yelp_api.search_query(term='{0}'.format(theme), ll=geo, sort=2, radius_filter=dis, offset=0)['businesses'] #sort=2 returns the highest rated locations
     search_results = search_results +  yelp_api.search_query(term='{0}'.format(theme), ll=geo, sort=2, radius_filter=dis, offset=20)['businesses'] #index begin at 20
     #parse the response
-    locations = {} #store parsed businesses
+    locations = [] #store parsed businesses
     for idx, e in enumerate(search_results):
+       location = {}
        lat = e['location']['coordinate']['latitude']
        lng = e['location']['coordinate']['longitude']
        uber_time = uberize(lat, lng)
-       locations[e['name']] = [[lat, lng], e['rating'], uber_time]
+       location['name'] = e['name']
+       location['latitude'] = lat
+       location['longitude'] =  lng
+       location['yelp_rating'] = e['rating']
+       location['uber_time'] =  uber_time
+       locations.append(location)
     return locations
 def retrive(suffix=''):
     os.system('curl "https://boiling-fire-6168.firebaseio.com{0}.json?print=pretty" >> temp.txt'.format(suffix)) #get data from database
@@ -73,7 +79,7 @@ def compare_clusers(locations, centriods, c_size):
                closest_match = similarity
                matches[idx] = pt 
         locations.pop(locations.index(matches[idx]))   
+    for place in matches[:3]:
+       ##TODO     
     return matches[:3], clusters[:3]
-
-    
 
