@@ -92,8 +92,8 @@ def filtered_clusters():
         singleCluster = {}
         singleCluster['no'] = i
         cen = data_cluster_centers[i]
-        singleCluster['lat'] = cen[1]
-        singleCluster['lon'] = cen[0]
+        singleCluster['latitude'] = cen[1]
+        singleCluster['longitude'] = cen[0]
         singleCluster['size'] = data_num_each_cluster[i,0]
         singleCluster['content'] = selected_text[data_labels==i]
         cluster_info.append(singleCluster)
