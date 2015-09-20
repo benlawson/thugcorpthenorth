@@ -38,7 +38,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-for tweet in tweepy.Cursor(api.search,q="",count=1000000, geocode="43.653226,-79.383184,400mi").items():
+for tweet in tweepy.Cursor(api.search,q="",count=1000000, geocode="43.717499, -79.417184,10mi").items():
     if tweet.coordinates != None:
         send_data(tweet)
 
