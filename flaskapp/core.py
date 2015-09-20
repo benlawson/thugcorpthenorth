@@ -68,14 +68,7 @@ def compare_clusters(locations, clusters):
                closest_match = similarity
                matches[idx] = pt
     ret = []
-    print "~~~~~~~~~~~~~~~~~~~~~~~~~~"
-    print matches
-    print "~~~~~~~~~~~~~~~~~~~~~~~~~~"
     for idx, place in enumerate(matches):
-        print "!!!!!!!!!!!!!!!!!!!"
-        print place.__class__
-        print place
-        print "!!!!!!!!!!!!!!!!!!!"
         place['cluster_size'] = clusters[idx]['size']
         place['content'] = clusters[idx]['content']
         place['blurb'] = yelp_api.business_query(place['business_id'])
