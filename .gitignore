@@ -3,3 +3,5 @@
 ../twitter_data.json
 ../instagram_data.json
 *.json
+
+*.ipynb
