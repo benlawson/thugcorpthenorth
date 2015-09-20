@@ -8,7 +8,7 @@ import numpy as np
 import os
 import indicoio
 import geo_results
-def tweetCategory(getDF=False):
+def tweetCategory(getDF=False,insta=False):
     '''
 
     :return: (text_classAndSenti,text_list)
@@ -16,11 +16,15 @@ def tweetCategory(getDF=False):
                                                 (:,0)=0 otherwise
         text_list: original lists of tweets
     '''
-    os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data.json')
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
-
-    with open('twitter_data.json') as json_data:
-        data = json.load(json_data)
+    if insta:
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter/twitter_data.json')
+        with open('twitter/twitter_data.json') as json_data:
+            data = json.load(json_data)
+    else:
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > instagram/instagram_data.json')
+        with open('instagram/instagram_data.json') as json_data:
+            data = json.load(json_data)
     # JSON -> list of texts
     df = pd.DataFrame.from_dict(data)
     df = df.transpose()
@@ -83,10 +87,17 @@ def filtered_clusters():
     exec(open("kmeans.py").read())
 
     data_labels,data_cluster_centers,data_num_each_cluster = kmeansData(k=k,df=df,plotFlag=False)
-    cluster_info = {}
+    cluster_info = []
     for i in xrange(k):
+        singleCluster = {}
+        singleCluster['no'] = i
         cen = data_cluster_centers[i]
-        cluster_info[(cen[0],cen[1])] = (data_num_each_cluster[i,0],selected_text[data_labels==i])
+        singleCluster['lat'] = cen[1]
+        singleCluster['lon'] = cen[0]
+        singleCluster['size'] = data_num_each_cluster[i,0]
+        singleCluster['content'] = selected_text[data_labels==i]
+        cluster_info.append(singleCluster)
+
     #pprint(cluster_info)
     return cluster_info
 

@@ -21,7 +21,7 @@ def index():
                 {'name': "The Opera House", 'address': "132 pls address", 'latitude': 43.6532260, 'longitude': -79.3831840}
              ]
 
-    return render_template('example.html', description=description, latitude=latitude, longitude=longitude, results=results)
+    return render_template('map_results.html', description=description, latitude=latitude, longitude=longitude, results=results)
 
 
 @app.errorhandler(404)
