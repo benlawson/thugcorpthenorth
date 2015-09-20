@@ -45,6 +45,7 @@ def client_choice(latitude, longitude, dis, theme=None):
        location['latitude'] = lat
        location['longitude'] =  lng
        location['yelp_rating'] = e['rating']
+       location['business_id'] = e['id']
        location['uber_time'] =  uber_time
        locations.append(location)
     return locations
@@ -77,6 +78,7 @@ def compare_clusters(locations, clusters):
         print "!!!!!!!!!!!!!!!!!!!"
         place['cluster_size'] = clusters[idx]['size']
         place['content'] = clusters[idx]['content']
+        place['blurb'] = yelp_api.business_query(place['business_id'])
         ret.append(place) 
     return ret 
 
