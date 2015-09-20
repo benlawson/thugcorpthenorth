@@ -2,9 +2,7 @@
 <html>
   <head> 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/maps.css') }}">
-    <!-- // <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
- 
+     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/maps.css') }}"> 
 
     <!-- Add jQuery library -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.10.1.min.js') }}"></script>
@@ -14,17 +12,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/jquery.fancybox.css') }}" media="screen">
 
     <meta charset="utf-8">
-    <title>Info windows</title>
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
+    <title>Urban-Adventure!</title>
   </head>
   <body>
     <div id="map"></div>
@@ -211,17 +199,30 @@
         }
     </style>
 
-
-
-
     <div id="inline1" style="width:400px;display: none;">
         <h3 id="inline1header"></h3>
-        <p>"sick bro"</p>
+        <p id="inline1content"></p>
     </div>
 
+    <div id="inline2" style="width:400px;display: none;">
+        <h3 id="inline2header"></h3>
+        <p id="inline2content"></p>
+    </div>
+
+    <div id="inline3" style="width:400px;display: none;">
+        <h3 id="inline3header"></h3>
+        <p id="inline3content"></p>
+    </div>
 
 <script>
-document.getElementById("inline1header").innerHTML = "dickem";
+document.getElementById("inline1header").innerHTML = '{{ results[0]["name"] }}';
+document.getElementById("inline1content").innerHTML = 'Insert {{ results[0]["name"] }} content here';
+
+document.getElementById("inline2header").innerHTML = '{{ results[1]["name"] }}';
+document.getElementById("inline2content").innerHTML = 'Insert {{ results[1]["name"] }} content here';
+
+document.getElementById("inline3header").innerHTML = '{{ results[2]["name"] }}';
+document.getElementById("inline3content").innerHTML = 'Insert {{ results[2]["name"] }} content here';
 </script>
 
 
@@ -235,8 +236,8 @@ function initMap() {
   });
 
   var contentString1 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline1">{{ results[0]["name"] }}</a></h1>'+'<p> {{ results[0]["address"] }} </p> </div>'+'</div>';
-  var contentString2 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading">{{ results[1]["name"] }}</h1>'+'<p> {{ results[1]["address"] }} </p> </div>'+'</div>';
-  var contentString3 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading">{{ results[2]["name"] }}</h1>'+'<p> {{ results[2]["address"] }} </p> </div>'+'</div>';
+  var contentString2 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline2">{{ results[1]["name"] }}</a></h1>'+'<p> {{ results[1]["address"] }} </p> </div>'+'</div>';
+  var contentString3 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline3">{{ results[2]["name"] }}</a></h1>'+'<p> {{ results[2]["address"] }} </p> </div>'+'</div>';
 
   var infowindow1 = new google.maps.InfoWindow({
     content: contentString1

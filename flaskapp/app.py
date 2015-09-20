@@ -3,11 +3,9 @@ import sys
 import json
 from flask import Flask, request, redirect, render_template, url_for
 import sys
-# sys.path.append('~/thugcorpthenorth/src')
-# import application
-
+import applicaion
 app = Flask(__name__)
-
+sys.path.append('../src')
 @app.route('/')
 def homepage():
     return render_template('main.html')
@@ -17,13 +15,13 @@ def index():
     description = "Toronto"
     latitude = "43.6529206"
     longitude = "-79.3849008"
-    # results = application.run_clusters(latitude, longitude, radius, theme) 
+    results = applicaion.run_clusters(latitude, longitude, radius, theme) 
     results=[   {'name': "Casa Loma", 'address': "132 INSERT ADDRESS HERE", 'latitude': 43.67811065, 'longitude': -79.4094081263767},
                 {'name': "Mt Pleasant Cemetery", 'address': "132 addrrrrr", 'latitude': 43.6973726, 'longitude': -79.379036798564},
                 {'name': "The Opera House", 'address': "132 pls address", 'latitude': 43.6532260, 'longitude': -79.3831840}
              ]
 
-    return render_template('example.html', description=description, latitude=latitude, longitude=longitude, results=results)
+    return render_template('map_results.html', description=description, latitude=latitude, longitude=longitude, results=results)
 
 
 @app.errorhandler(404)
