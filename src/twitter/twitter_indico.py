@@ -15,15 +15,18 @@ def tweetCategory():
                                                 (:,0)=0 otherwise
         text_list: original lists of tweets
     '''
+
     os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data_cat.json')
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
 
-    with open('twitter_data.json') as json_data:
+    with open('twitter_data_cat.json') as json_data:
         data = json.load(json_data)
     # JSON -> list of texts
     df = pd.DataFrame.from_dict(data)
     df = df.transpose()
     text_list = df['text'].values.tolist()
+
+
 
     # Get topics
     indicoio.config.api_key = 'dfd155c0984bed63c78aef5ce44763bf'
@@ -47,6 +50,7 @@ def tweetCategory():
             text_classAndSenti[i,0] = 1
         else:
             text_classAndSenti[i,1] = 0 # clear sentiment info of non-food tweets
+
 
     return text_classAndSenti,text_list
 
