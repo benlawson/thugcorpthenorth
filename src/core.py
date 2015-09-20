@@ -66,20 +66,20 @@ def distance(lat1, lng1, lat2, lng2):
     d1 = lat1-lat2
     d2 = lng1 - lng2
     return math.sqrt((d1*d1) +( d2*d2) )
-def compare_clusers(locations, centriods, c_size):
-    clusters = zip(centriods, c_size)
-    sort = sorted(clusters, key=lambda x: x[1], reverse=True)
-    sort = filter(lambda x: x[1] > 50)
+def compare_clusers(locations, clusters):
     matches = [] # used to match clusters to yelp locations
     closest_match = 1000000
     for idx, clust in enumerate(clusters):
         for pt in locations:
-           similarity = distance(clust[0][0], clust[0][1], pt[0][0], pt[0][1])
+           similarity = distance(clust['latitude'], clust['longitude'], pt['latitude'], pt['longitude'])
            if similarity < closest_match:
                closest_match = similarity
                matches[idx] = pt 
         locations.pop(locations.index(matches[idx]))   
-    for place in matches[:3]:
-       ##TODO     
-    return matches[:3], clusters[:3]
+    ret = []
+    for idx, place in enumerate(matches[0:3]):
+        place['cluster_size'] = clusters[idx]['size']
+        place['content'] = clusters[idx]['content']
+        ret.append(place) 
+    return ret 
 
