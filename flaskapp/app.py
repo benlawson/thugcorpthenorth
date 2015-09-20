@@ -3,25 +3,30 @@ import sys
 import json
 from flask import Flask, request, redirect, render_template, url_for
 import sys
-import applicaion
+import application
+from geopy.geocoders import Nominatim
+import geo_results
+
 app = Flask(__name__)
 sys.path.append('../src')
+geolocator = Nominatim()
+
 @app.route('/')
-def homepage():
-    return render_template('main.html')
+def homepage(location=None):
+    return render_template('index.html', location=location)
 
-@app.route('/results')
+#, methods=['POST']
+@app.route('/results', methods=['POST'])
 def index():
-    description = "Toronto"
-    latitude = "43.6529206"
-    longitude = "-79.3849008"
-    results = applicaion.run_clusters(latitude, longitude, radius, theme) 
-    results=[   {'name': "Casa Loma", 'address': "132 INSERT ADDRESS HERE", 'latitude': 43.67811065, 'longitude': -79.4094081263767},
-                {'name': "Mt Pleasant Cemetery", 'address': "132 addrrrrr", 'latitude': 43.6973726, 'longitude': -79.379036798564},
-                {'name': "The Opera House", 'address': "132 pls address", 'latitude': 43.6532260, 'longitude': -79.3831840}
-             ]
+    error = None
+    (address, coordinates) = geolocator.geocode(request.form['location'])
 
-    return render_template('map_results.html', description=description, latitude=latitude, longitude=longitude, results=results)
+    latitude = coordinates[0]
+    longitude = coordinates[1]
+    radius = float(request.form['distance'])*1000
+    theme = request.form['find']
+    results = application.run_clusters(latitude, longitude, radius, theme) 
+    return render_template('map_results.html', radius=radius, latitude=latitude, longitude=longitude, results=results)
 
 
 @app.errorhandler(404)

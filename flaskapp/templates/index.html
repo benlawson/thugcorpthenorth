@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Urban Adventure - See your best option</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- Custom Fonts -->
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'>
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-formhelpers.min.css') }}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/creative.css') }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand page-scroll" href="#page-top">Urban Adventure</a>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1>Your Source for<br>currated adventures</h1>
+                <hr>
+                <p>Enter your address and what you're looking for and we will find your best option based on Yelp ratings, Twitter sentiment, and Instagram photos!</p>
+
+                <form class="form-horizontal col-sm-8 col-sm-offset-2" method="post" action="/results" id="mainform">
+                  <div class="form-group">
+                    <label for="location" class="col-sm-4 control-label">Where are we looking?</label>
+                    <div class="col-sm-8">
+                      <input type="location" name="location" class="form-control" id="location" placeholder="E.g. Air Canada Centre, Toronto">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="distance" class="col-sm-4 control-label">Max distance away?</label>
+                    <div class="col-sm-8">
+                      <select id="distance" class="form-control" name="distance" form="mainform">
+                        <option value="1">1 km</option>
+                        <option value="2">2 km</option>
+                        <option value="3">3 km</option>
+                        <option value="4">4 km</option>
+                        <option value="5">5 km</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="distance" class="col-sm-4 control-label">What should we find?</label>
+                    <div class="col-sm-8">
+                      <select id="find" class="form-control"name="find" form="mainform">
+                        <option value="Food">Food</option>
+                        <option value="Nightlife">Nightlife</option>
+                        <option value="Coffee &amp; Tea">Coffee &amp; Tea</option>
+                        <option value="Activities">Activities</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                      <input type="hidden" name="lon" value="lonx">
+                      <input type="hidden" name="lat" value="latx">
+                      <button type="submit" class="btn btn-primary btn-xl page-scroll">Lets go!</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-formhelpers.min.js') }}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static',  filename='js/creative.js') }}"></script>
+
+</body>
+
+</html>

@@ -2,6 +2,8 @@ import geo_results
 from yelpapi import YelpAPI
 from uberpy import Uber
 import math, os, json
+import numpy as np
+
 #yelp api setup
 with open('yelp.txt','r') as f:
         consumer_key = f.readline().strip()
@@ -51,36 +53,28 @@ def retrive(suffix=''):
     with open('temp.txt') as f:
         return json.load(f)
 
-def prepare_clusters():
-    import pandas as pd
-    import json
-    import os
-    import numpy as np
-     
-    x = retrive('/twitter_data')
-    x = x + retrive('/instagram_data')
-    df = pd.DataFrame.from_dict(data)
-    df = df.transpose()
-    df = df.dropna()
-    
-    labels,centriods,c_size = kmeansData(k=8, df=df,plotFlag=False)    
-    return cenriods, c_size
 def distance(lat1, lng1, lat2, lng2):
     d1 = lat1-lat2
     d2 = lng1 - lng2
     return math.sqrt((d1*d1) +( d2*d2) )
 def compare_clusters(locations, clusters):
     matches = [0]*len(clusters) # used to match clusters to yelp locations
-    closest_match = 1000000
     for idx, clust in enumerate(clusters):
+        closest_match = 1000000
         for pt in locations:
            similarity = distance(clust['latitude'], clust['longitude'], pt['latitude'], pt['longitude'])
-           if similarity < closest_match:
+           if similarity < closest_match and pt not in matches:
                closest_match = similarity
-               matches[idx] = pt 
-        locations.pop(locations.index(matches[idx]))   
+               matches[idx] = pt
     ret = []
-    for idx, place in enumerate(matches[0:3]):
+    print "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    print matches
+    print "~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    for idx, place in enumerate(matches):
+        print "!!!!!!!!!!!!!!!!!!!"
+        print place.__class__
+        print place
+        print "!!!!!!!!!!!!!!!!!!!"
         place['cluster_size'] = clusters[idx]['size']
         place['content'] = clusters[idx]['content']
         ret.append(place) 

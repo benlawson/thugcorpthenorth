@@ -9,7 +9,9 @@
 
     <!-- Add fancyBox main JS and CSS files -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fancybox.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fancybox.pack.js') }}"></script>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/jquery.fancybox.css') }}" media="screen">
+
 
     <meta charset="utf-8">
     <title>Urban-Adventure!</title>
@@ -235,9 +237,11 @@ function initMap() {
     center: location
   });
 
-  var contentString1 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline1">{{ results[0]["name"] }}</a></h1>'+'<p> {{ results[0]["address"] }} </p> </div>'+'</div>';
-  var contentString2 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline2">{{ results[1]["name"] }}</a></h1>'+'<p> {{ results[1]["address"] }} </p> </div>'+'</div>';
-  var contentString3 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline3">{{ results[2]["name"] }}</a></h1>'+'<p> {{ results[2]["address"] }} </p> </div>'+'</div>';
+  var contentString1 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline1">{{ results[0]["name"] }}</a></h1>'+'<p> {{ results[0]["name"] }} </p> </div>'+'</div>';
+  var contentString2 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline2">{{ results[1]["name"] }}</a></h1>'+'<p> {{ results[1]["name"] }} </p> </div>'+'</div>';
+  var contentString3 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+'<h1 id="firstHeading" class="firstHeading"><a class="fancybox" href="#inline3">{{ results[2]["name"] }}</a></h1>'+'<p> {{ results[2]["name"] }} </p> </div>'+'</div>';
+
+  //CHANGE <p> {{ results[1]["name"] }} </p>  BACK TO <p> {{ results[1]["address"] }} </p>  !!!!
 
   var infowindow1 = new google.maps.InfoWindow({
     content: contentString1
@@ -297,14 +301,13 @@ function initMap() {
         fillOpacity: 0.35,
         map: map,
         center: location,
-        radius: 5000 // in meters
+        radius: parseInt('{{ radius }}') // in meters
     };
   cityCircle = new google.maps.Circle(sunCircle);
 
 }
     </script>
-    <script type="text/javascript" src="{{ url_for('static', filename='/fancybox/source/jquery.fancybox.pack.js') }}"></script>
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='fancybox/source/jquery.fancybox.css') }}" media="screen">
+
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkpuFR0W-sLK_bS9sHJBMkUMzC6g8TANw&signed_in=true&callback=initMap"></script>
   </body>
