@@ -68,8 +68,8 @@ def tweetCategory(getDF=False,insta=False):
     else:
         return text_classAndSenti,text_list
 
-def filtered_clusters():
-    k = 3 # set k here
+def filtered_clusters(k=3):
+      
     classAndSenti,text_list,df = tweetCategory(getDF=True)
 
     text_list = np.asarray(text_list) # convert to numpy array
