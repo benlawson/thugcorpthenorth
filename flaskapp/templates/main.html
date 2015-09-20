@@ -21,6 +21,7 @@
 
     <!-- Plugin CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-formhelpers.min.css') }}">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/creative.css') }}">
@@ -53,33 +54,43 @@
                 <hr>
                 <p>Enter your address and what you're looking for and we will find your best option based on Yelp ratings, Twitter sentiment, and Instagram photos!</p>
 
-                <form method="post" action="/results" id="mainform">
-                  <h2>How far away?</h2>
-
-                  <select name="distance" form="mainform">
-                    <option value="1">1 mile</option>
-                    <option value="2">2 mile</option>
-                    <option value="3">3 mile</option>
-                    <option value="4">4 mile</option>
-                  </select>
-
-                  <label for="slider-fill">Input slider:</label>
-                  <input type="range" name="slider-fill" id="slider-fill" value="1" min="0" max="5" data-highlight="true" />
-
-                  <select name="find" form="mainform">
-                    <option value="Restarants">Restarants</option>
-                    <option value="Nightlife">Nightlife</option>
-                    <option value="Coffee &amp; Tea">Coffee &amp; Tea</option>
-                    <option value="Activities">Activities</option>
-                  </select>
-
-                  <input type="hidden" name="lon" value="lonx">
-                  <input type="hidden" name="lat" value="latx">
-
-                  <button>Find the best place</button>
+                <form class="form-horizontal col-sm-8 col-sm-offset-2" method="post" action="/results" id="mainform">
+                  <div class="form-group">
+                    <label for="distance" class="col-sm-4 control-label">How far away?</label>
+                    <div class="col-sm-8">
+                      <select id="distance" class="form-control" name="distance" form="mainform">
+                        <option value="1">1 mile</option>
+                        <option value="2">2 mile</option>
+                        <option value="3">3 mile</option>
+                        <option value="4">4 mile</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="distance" class="col-sm-4 control-label">Find?</label>
+                    <div class="col-sm-8">
+                      <select id="find" class="form-control"name="find" form="mainform">
+                        <option value="Food">Food</option>
+                        <option value="Nightlife">Nightlife</option>
+                        <option value="Coffee &amp; Tea">Coffee &amp; Tea</option>
+                        <option value="Activities">Activities</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Password</label>
+                    <div class="col-sm-8">
+                      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                      <input type="hidden" name="lon" value="lonx">
+                      <input type="hidden" name="lat" value="latx">
+                      <button type="submit" class="btn btn-primary btn-xl page-scroll">Get Results</button>
+                    </div>
+                  </div>
                 </form>
-
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
         </div>
     </header>
@@ -276,6 +287,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-formhelpers.min.js') }}"></script>
 
     <!-- Custom Theme JavaScript -->
     <script type="text/javascript" src="{{ url_for('static',  filename='js/creative.js') }}"></script>
