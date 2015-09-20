@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-
 from flask import Flask, request, redirect, render_template, url_for
 
 app = Flask(__name__)
@@ -9,6 +8,19 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     return render_template('main.html')
+
+@app.route('/results')
+def index():
+    description = "Toronto"
+    latitude = "43.6529206"
+    longitude = "-79.3849008"
+    results=[   {'name': "Casa Loma", 'address': "132 INSERT ADDRESS HERE", 'latitude': 43.67811065, 'longitude': -79.4094081263767},
+                {'name': "Mt Pleasant Cemetery", 'address': "132 addrrrrr", 'latitude': 43.6973726, 'longitude': -79.379036798564},
+                {'name': "The Opera House", 'address': "132 pls address", 'latitude': 43.6532260, 'longitude': -79.3831840}
+             ]
+
+    return render_template('example.html', description=description, latitude=latitude, longitude=longitude, results=results)
+
 
 @app.errorhandler(404)
 def page_not_found(e):
