@@ -1,0 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*font-size: 50%;*/
+}
+#map {
+    height: 100%;
+}
+
+h1 {
+    font-size: 75%;
+}
+p {
+    font-size: 75%;
+}
+
+.content {
+    margin:10px 5px 15px 20px;
+}
