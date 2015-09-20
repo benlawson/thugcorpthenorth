@@ -20,11 +20,12 @@ with open('uber.txt','r') as f:
 uber = Uber(client_id, server_token, secret)
 
 def uberize(latitude, longitude):
-    total = []
-    times = uber.get_time_estimate(latitude, longitude)
-    for x in (times['times']):
-        total.append(x['estimate'])
     try:
+        total = []
+        times = uber.get_time_estimate(latitude, longitude)
+        for x in (times['times']):
+            total.append(x['estimate'])
+  
         return sum(total)/float(len(total))
     except:
         return 0 
