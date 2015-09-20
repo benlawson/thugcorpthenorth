@@ -17,13 +17,13 @@ def tweetCategory(getDF=False,insta=False):
         text_list: original lists of tweets
     '''
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
-    if insta:
-        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter/twitter_data.json')
-        with open('twitter/twitter_data.json') as json_data:
+    if not(insta):
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data.json')
+        with open('twitter_data.json') as json_data:
             data = json.load(json_data)
     else:
-        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > instagram/instagram_data.json')
-        with open('instagram/instagram_data.json') as json_data:
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > instagram_data.json')
+        with open('instagram_data.json') as json_data:
             data = json.load(json_data)
     # JSON -> list of texts
     df = pd.DataFrame.from_dict(data)
