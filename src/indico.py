@@ -60,10 +60,22 @@ def tweetCategory():
             text_classAndSenti[i,1] = 0 # clear sentiment info of non-food tweets
 
     return text_classAndSenti,text_list
+
 def filtered_clusters():
     classAndSenti,text_list = tweetCategory()
     text_list = np.asarray(text_list)
     selected_index = (classAndSenti[:,0]==1).nonzero()
-    print(selected_index)
-    selected_text = text_list[selected_index]
-    return selected_text
+    selected_text = np.asarray(text_list[selected_index])
+
+    df = df.drop(df.index[unselected_index])
+
+    exec(open("kmeans.py").read())
+
+    data_labels,data_cluster_centers,data_num_each_cluster = kmeansData(k=k,df=df,plotFlag=False)
+    cluster_info = {}
+    for i in xrange(k):
+        cen = data_cluster_centers[i]
+        cluster_info[(cen[0],cen[1])] = (data_num_each_cluster[i,0],selected_text[data_labels==i])
+    pprint(cluster_info)
+    return cluster_info
+
