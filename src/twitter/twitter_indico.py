@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 import os
 import indicoio
-def tweetCategory():
+def tweetCategory(getDF=False):
     '''
 
     :return: (text_classAndSenti,text_list)
@@ -16,7 +16,7 @@ def tweetCategory():
         text_list: original lists of tweets
     '''
 
-    os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data_cat.json')
+    # os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data_cat.json')
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
 
     with open('twitter_data_cat.json') as json_data:
@@ -52,10 +52,13 @@ def tweetCategory():
             text_classAndSenti[i,1] = 0 # clear sentiment info of non-food tweets
 
 
-    return text_classAndSenti,text_list
+    if getDF:
+        return text_classAndSenti,text_list,df
+    else:
+        return text_classAndSenti,text_list
 
-classAndSenti,text_list = tweetCategory()
-text_list = np.asarray(text_list)
-selected_index = (classAndSenti[:,0]==1).nonzero()
-print(selected_index)
-selected_text = text_list[selected_index]
+if __name__=='__main__':
+    classAndSenti,text_list = tweetCategory()
+    text_list = np.asarray(text_list)
+    selected_index = (classAndSenti[:,0]==1).nonzero()
+    selected_text = text_list[selected_index]
