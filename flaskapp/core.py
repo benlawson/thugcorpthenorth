@@ -22,7 +22,10 @@ def uberize(latitude, longitude):
     times = uber.get_time_estimate(latitude, longitude)
     for x in (times['times']):
         total.append(x['estimate'])
-    return sum(total)/float(len(total))
+    try:
+        return sum(total)/float(len(total))
+    except:
+        return 0 
 
 def client_choice(latitude, longitude, dis, theme=None):
     '''takes in clients options and returns top 20 resturants as a list with meta information like the Yelp Rating and the average wait time for an Uber'''
