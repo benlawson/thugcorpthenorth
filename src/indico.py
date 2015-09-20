@@ -8,7 +8,7 @@ import numpy as np
 import os
 import indicoio
 import geo_results
-def tweetCategory():
+def tweetCategory(getDF=False):
     '''
 
     :return: (text_classAndSenti,text_list)
@@ -59,9 +59,13 @@ def tweetCategory():
         else:
             text_classAndSenti[i,1] = 0 # clear sentiment info of non-food tweets
 
-    return text_classAndSenti,text_list
+    if getDF:
+        return text_classAndSenti,text_list,df
+    else:
+        return text_classAndSenti,text_list
 
 def filtered_clusters():
+    k = 3 # set k here
     classAndSenti,text_list,df = tweetCategory(getDF=True)
 
     text_list = np.asarray(text_list) # convert to numpy array
@@ -86,3 +90,6 @@ def filtered_clusters():
     #pprint(cluster_info)
     return cluster_info
 
+if __name__=='__main__':
+    cluster_info = filtered_clusters()
+    print(cluster_info)
