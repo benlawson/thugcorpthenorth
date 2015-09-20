@@ -70,7 +70,7 @@ def distance(lat1, lng1, lat2, lng2):
     d2 = lng1 - lng2
     return math.sqrt((d1*d1) +( d2*d2) )
 def compare_clusters(locations, clusters):
-    matches = [] # used to match clusters to yelp locations
+    matches = [0]*len(clusters) # used to match clusters to yelp locations
     closest_match = 1000000
     for idx, clust in enumerate(clusters):
         for pt in locations:
