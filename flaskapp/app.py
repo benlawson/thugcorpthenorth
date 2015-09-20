@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return render_template('referenceindex.html')
+    return render_template('main.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
