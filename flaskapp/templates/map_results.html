@@ -218,14 +218,28 @@
 
 <script>
 document.getElementById("inline1header").innerHTML = '{{ results[0]["name"] }}';
-document.getElementById("inline1content").innerHTML = 'Insert {{ results[0]["name"] }} content here';
+  document.getElementById("inline1content").innerHTML = '<ul>'+
+  '<li>Is closed: {{ results[0]["blurb"]["is_closed"] }}</li>'+
+  '<li>Restaurant theme: {{ results[0]["blurb"]["categories"][0][0] }}</li>'+
+  '<li>Phone number: {{ results[0]["blurb"]["phone"] }}</li>'+
+  '<li>Website: <a href={{ results[0]["blurb"]["url"] }}>{{ results[0]["blurb"]["url"] }}</a></li>'+
+  '</ul>';
 
 document.getElementById("inline2header").innerHTML = '{{ results[1]["name"] }}';
-document.getElementById("inline2content").innerHTML = 'Insert {{ results[1]["name"] }} content here';
+  document.getElementById("inline2content").innerHTML = '<ul>'+
+  '<li>Is closed: {{ results[1]["blurb"]["is_closed"] }}</li>'+
+  '<li>Restaurant theme: {{ results[1]["blurb"]["categories"][0][0] }}</li>'+
+  '<li>Phone number: {{ results[1]["blurb"]["phone"] }}</li>'+
+  '<li>Website: <a href={{ results[1]["blurb"]["url"] }}>{{ results[1]["blurb"]["url"] }}</a></li>'+
+  '</ul>';
 
 document.getElementById("inline3header").innerHTML = '{{ results[2]["name"] }}';
-document.getElementById("inline3content").innerHTML = 'Insert {{ results[2]["name"] }} content here';
-</script>
+  document.getElementById("inline3content").innerHTML = '<ul>'+
+  '<li>Is closed: {{ results[2]["blurb"]["is_closed"] }}</li>'+
+  '<li>Restaurant theme: {{ results[2]["blurb"]["categories"][0][0] }}</li>'+
+  '<li>Phone number: {{ results[2]["blurb"]["phone"] }}</li>'+
+  '<li>Website: <a href={{ results[2]["blurb"]["url"] }}>{{ results[2]["blurb"]["url"] }}</a></li>'+
+  '</ul>';</script>
 
 
     <script>
