@@ -16,7 +16,7 @@ def tweetCategory(getDF=False):
         text_list: original lists of tweets
     '''
 
-    # os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data_cat.json')
+    os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter_data_cat.json')
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
 
     with open('twitter_data_cat.json') as json_data:
