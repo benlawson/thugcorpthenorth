@@ -8,6 +8,7 @@ import numpy as np
 import os
 import indicoio
 import geo_results
+from pprint import pprint
 def tweetCategory(getDF=False,insta=False):
     '''
 
@@ -18,27 +19,38 @@ def tweetCategory(getDF=False,insta=False):
     '''
     FOOD=["beer","cooking","general_food","vegan","vegetarian","wine","nutrition"]
     if insta:
-        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter/twitter_data.json')
-        with open('twitter/twitter_data.json') as json_data:
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/instagram_data.json?print=pretty" > instagram/instagram_data_cat.json')
+        with open('instagram/instagram_data_cat.json') as json_data:
             data = json.load(json_data)
     else:
-        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > instagram/instagram_data.json')
-        with open('instagram/instagram_data.json') as json_data:
+        os.system('curl "https://boiling-fire-6168.firebaseio.com/twitter_data.json?print=pretty" > twitter/twitter_data_cat.json')
+        with open('twitter/twitter_data_cat.json') as json_data:
             data = json.load(json_data)
     # JSON -> list of texts
     df = pd.DataFrame.from_dict(data)
     df = df.transpose()
-    print(df.info())
-    lat = df['coordinate_1']
-    lng = df['coordinate_2']
+    # print("dfInfo",df.info())
+    if insta:
+        lat = df['coordinate_2']
+        lng = df['coordinate_1']
+    else:
+        lat = df['coordinate_1']
+        lng = df['coordinate_2']
     in_toronto = []
     for idx,x  in enumerate(lat):
         in_toronto = in_toronto + [geo_results.is_in_circle(geo_results.TORONTO.latitude, geo_results.TORONTO.longitude, geo_results.radius, lng[idx], lat[idx])]
-    print in_toronto
+    # print in_toronto
     df['in_toronto'] = in_toronto
     df = df[df['in_toronto'] == 1]
-    print df
-    text_list = df['text'].values.tolist()
+    # print("DF:  ")
+    # print df
+    # dicard insta without text
+    if insta:
+        df = df[df['text'].notnull()]
+        text_list =df['text'].values.tolist()
+    else:
+        text_list = df['text'].values.tolist()
+    print(df.shape)
 
     # Get topics
     indicoio.config.api_key = 'dfd155c0984bed63c78aef5ce44763bf'
@@ -58,7 +70,7 @@ def tweetCategory(getDF=False,insta=False):
     # put text into classes (Food is 1; otherwise, 0)
     for i,t in enumerate(topics):
         top_topics = t.keys()
-        if topIncluded(top_topics,FOOD) and text_classAndSenti[i,1]>.5:
+        if topIncluded(top_topics,FOOD) and text_classAndSenti[i,1]>0.5:
             text_classAndSenti[i,0] = 1
         else:
             text_classAndSenti[i,1] = 0 # clear sentiment info of non-food tweets
@@ -68,39 +80,41 @@ def tweetCategory(getDF=False,insta=False):
     else:
         return text_classAndSenti,text_list
 
-def filtered_clusters():
+def filtered_clusters(insta=False):
+    if insta:
+        print("****INSTAGRAM****")
     k = 3 # set k here
-    classAndSenti,text_list,df = tweetCategory(getDF=True)
+    classAndSenti,text_list,df = tweetCategory(getDF=True,insta=insta)
 
     text_list = np.asarray(text_list) # convert to numpy array
-    selected_index = (classAndSenti[:,0]==1).nonzero()
-    selected_text = text_list[selected_index]
 
     # get indexes of the selected/unselcted rows
     selected_index = (classAndSenti[:,0]==1).nonzero()
     unselected_index = (classAndSenti[:,0]==0).nonzero()
     # get the selected text
     selected_text = np.asarray(text_list[selected_index])
-
     df = df.drop(df.index[unselected_index])
-
     exec(open("kmeans.py").read())
-
     data_labels,data_cluster_centers,data_num_each_cluster = kmeansData(k=k,df=df,plotFlag=False)
     cluster_info = []
     for i in xrange(k):
         singleCluster = {}
         singleCluster['no'] = i
         cen = data_cluster_centers[i]
-        singleCluster['lat'] = cen[1]
-        singleCluster['lon'] = cen[0]
+        if insta:
+            singleCluster['lat'] = cen[0]
+            singleCluster['lon'] = cen[1]
+        else:
+            singleCluster['lat'] = cen[1]
+            singleCluster['lon'] = cen[0]
         singleCluster['size'] = data_num_each_cluster[i,0]
+
         singleCluster['content'] = selected_text[data_labels==i]
         cluster_info.append(singleCluster)
 
-    #pprint(cluster_info)
+    pprint(cluster_info)
     return cluster_info
 
 if __name__=='__main__':
-    cluster_info = filtered_clusters()
-    print(cluster_info)
+    cluster_info = filtered_clusters(insta=True)
+    print(cluster_info[0]['content'].shape)
