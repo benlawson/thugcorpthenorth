@@ -25,7 +25,7 @@ def index():
     longitude = coordinates[1]
     radius = float(request.form['distance'])*1000
     theme = request.form['find']
-    results = application.run_clusters(latitude, longitude, radius, theme) 
+    results = application.run_clusters(latitude, longitude, radius, theme)
     return render_template('map_results.html', radius=radius, latitude=latitude, longitude=longitude, results=results)
 
 
