@@ -1,7 +1,9 @@
 ../keys.txt
-*.pyc
+../flaskapp/uber.txt
+../flaskapp/yelp.txt
+../twitter_keys.txt
 ../twitter_data.json
 ../instagram_data.json
+*.pyc
 *.json
-
 *.ipynb

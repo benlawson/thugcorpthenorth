@@ -15,4 +15,4 @@ __Uber__: Uber is used as part of our weigting for posts. We utilized the 'avail
 ### Overview
 All of this combined, we get an awesome search engine powered by social media and data analysis! We will re-release a live version again soon!
 
-Feel free to try it out at [urban-adventure.co](http://urban-adventure.co)
+Feel free to try it out at [urban-adventure.co](http://urban-adventure.co) (__Note__: We recommend trying regions in Northeast NA such as Toronto or New York since we primarily aggregated data there.)
