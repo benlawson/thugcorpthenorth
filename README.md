@@ -13,6 +13,7 @@ __Indico__: We performed topic modeling to weigh the tweets and instagram posts 
 __Uber__: Uber is used as part of our weigting for posts. We utilized the 'available services' access point to calculate a measure of 'urbanness' for different locations identified by earlier steps in our pipline.  
 
 ### Overview
-All of this combined, we get an awesome search engine powered by social media and data analysis! We will re-release a live version again soon!
 
-Feel free to try it out at [urban-adventure.co](http://urban-adventure.co) (__Note__: We recommend trying regions in Northeast NA such as Toronto or New York since we primarily aggregated data there.)
+Once we combined these components, we got an awesome search engine algorithm powered by social media and data analysis! For more information, check out our [Devpost](http://devpost.com/software/urban-adventure) or [video demo](https://www.youtube.com/watch?v=bs2WjugDjAg). 
+
+*Built in 36 hours at Hack the North 2015*
