@@ -14,12 +14,6 @@ __Uber__: Uber is used as part of our weigting for posts. We utilized the 'avail
 
 ### Overview
 
-<<<<<<< HEAD
 Once we combined these components, we got an awesome search engine algorithm powered by social media and data analysis! For more information, check out our [Devpost](http://devpost.com/software/urban-adventure) or [video demo](https://www.youtube.com/watch?v=bs2WjugDjAg). 
 
-*Built in 36 hours at Hack the North 2015*
-=======
-Feel free to try it out at [urban-adventure.co](http://urban-adventure.co) (__Note__: We recommend trying regions in Northeast NA such as Toronto or New York since we primarily aggregated data there.)
-
 _Built in 36 hours at Hack the North 2015_
->>>>>>> 388d574f2d5c2a4b3a48b8c0038a70fc19c481f8
