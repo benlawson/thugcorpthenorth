@@ -45,6 +45,6 @@ ssh-import-id==3.21
 tornado==3.1.1
 tweepy==3.4.0
 urllib3==1.12
-wheel==0.24.0
+wheel==0.38.1
 wsgiref==0.1.2
 zope.interface==4.0.5
